@@ -1,0 +1,12 @@
+{application, httppost,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { httppost_app, []}},
+  {env, []}
+ ]}.
