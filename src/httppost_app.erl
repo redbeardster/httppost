@@ -1,22 +1,18 @@
 -module(httppost_app).
-
 -behaviour(application).
-
-%% Application callbacks
 -export([start/2, stop/1]).
 
-%% ===================================================================
-%% Application callbacks
-%% ===================================================================
-
 start(_StartType, _StartArgs) ->
+    
+    Config = application:get_all_env(rediska),
+    HTTPPort = proplists:get_value(http_port, Config),
     Dispatch = cowboy_router:compile([
 	{'_', [
 	    {"/", httppost, []}
 	]}
     ]),
 
-    {ok, _} = cowboy:start_http(http, 200, [{port, 8111},{backlog, 9192},  {max_connections, infinity}], [
+    {ok, _} = cowboy:start_http(http, 200, [{port, HTTPPort},{backlog, 9192},  {max_connections, infinity}], [
 	{env, [{dispatch, Dispatch}]}]),
 
 
